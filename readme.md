@@ -5,14 +5,15 @@
 
 ```sql
 CREATE OR REPLACE FUNCTION list_deportes()
-RETURNS TABLE(cod INT, nombre TEXT) AS $$
+RETURNS TABLE(cod INT, nombre VARCHAR(20)) AS $$
 BEGIN
     RETURN QUERY
-    SELECT cod, nombre
-    FROM deportes
-    ORDER BY cod;
+    SELECT d.cod, d.nombre
+    FROM deportes d
+    ORDER BY d.cod;
 END;
 $$ LANGUAGE plpgsql;
+
 
 ```
 
@@ -20,7 +21,11 @@ $$ LANGUAGE plpgsql;
 
 ```sql
 CREATE OR REPLACE FUNCTION list_deportistas_by_deporte(p_cod INT)
-RETURNS TABLE(deportista_nombre TEXT, deportista_cod INT, deporte_nombre TEXT) AS $$
+RETURNS TABLE(
+    deportista_nombre VARCHAR(50),
+    deportista_cod INT,
+    deporte_nombre VARCHAR(20)
+) AS $$
 BEGIN
     RETURN QUERY
     SELECT d.nombre, d.cod, dp.nombre
@@ -30,4 +35,5 @@ BEGIN
     ORDER BY d.nombre;
 END;
 $$ LANGUAGE plpgsql;
+
 ```
