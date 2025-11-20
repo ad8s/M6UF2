@@ -38,7 +38,7 @@ public class DeportesPgDAO implements DAO<Deporte> {
             return lista;
 
         try (Statement st = conn.createStatement()) {
-            ResultSet rs = st.executeQuery("SELECT cod, nombre FROM deportes ORDER BY cod");
+            ResultSet rs = st.executeQuery("SELECT * FROM list_deportes();");
             while (rs.next()) {
                 lista.add(new Deporte(
                         rs.getInt("cod"),

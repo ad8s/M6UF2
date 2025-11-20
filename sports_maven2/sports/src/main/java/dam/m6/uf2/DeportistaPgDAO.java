@@ -61,8 +61,7 @@ public class DeportistaPgDAO implements DAO<Deportista> {
         try (Statement st = conn.createStatement()) {
             ResultSet rs = st.executeQuery(
                     "SELECT d.cod AS cod, d.nombre AS nombre, d.cod_deporte AS cod_deporte, dp.nombre AS deporte FROM deportistas d LEFT JOIN deportes dp ON d.cod_deporte = dp.cod WHERE LOWER(d.nombre) LIKE LOWER('%"
-                            +
-                            name + "%')");
+                            + name + "%')");
 
             while (rs.next()) {
                 lista.add(new Deportista(
@@ -84,15 +83,14 @@ public class DeportistaPgDAO implements DAO<Deportista> {
 
         try (Statement st = conn.createStatement()) {
             ResultSet rs = st.executeQuery(
-                    "SELECT d.cod AS cod, d.nombre AS nombre, d.cod_deporte AS cod_deporte, dp.nombre AS deporte FROM deportistas d LEFT JOIN deportes dp ON d.cod_deporte = dp.cod WHERE d.cod_deporte = "
-                            + sportID);
+                    "SELECT * FROM list_deportistas_by_deporte(" + sportID + ");");
 
             while (rs.next()) {
                 lista.add(new Deportista(
-                        rs.getInt("cod"),
-                        rs.getString("nombre"),
-                        rs.getInt("cod_deporte"),
-                        rs.getString("deporte") != null ? rs.getString("deporte") : null));
+                        rs.getInt("deportista_cod"),
+                        rs.getString("deportista_nombre"),
+                        sportID,
+                        rs.getString("deporte_nombre")));
             }
         } catch (SQLException e) {
             e.printStackTrace();

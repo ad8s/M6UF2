@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.Types; 
+import java.sql.Types;
 
 public class UserPgDAO implements DAO<User> {
     private Connection conn;
@@ -40,7 +40,7 @@ public class UserPgDAO implements DAO<User> {
     public List<User> getAll() {
         List<User> users = new ArrayList<>();
 
-          String sql = "SELECT * FROM users";
+        String sql = "SELECT * FROM users";
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             ResultSet rs = stmt.executeQuery();
@@ -48,10 +48,8 @@ public class UserPgDAO implements DAO<User> {
             while (rs.next()) {
                 users.add(new User(
                         rs.getString("name"),
-                        rs.getString("pass")
-                        ));
+                        rs.getString("pass")));
             }
-
 
         } catch (SQLException e) {
             System.err.println("Error al buscar usuaris: " + e.getMessage());
@@ -63,7 +61,7 @@ public class UserPgDAO implements DAO<User> {
     public void callFunction(String p1, String p2) {
         CallableStatement cStmt = null;
         try {
-            cStmt = conn.prepareCall    ("{call get_user_name(?,?)}");
+            cStmt = conn.prepareCall("{call get_user_name(?,?)}");
             cStmt.setString(1, p1);
             cStmt.setString(2, p2);
             cStmt.execute();
@@ -73,8 +71,6 @@ public class UserPgDAO implements DAO<User> {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-    
-
     }
 
     public boolean userExists(String name) {
