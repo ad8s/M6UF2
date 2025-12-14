@@ -22,18 +22,18 @@ $$ LANGUAGE plpgsql;
 ```sql
 CREATE OR REPLACE FUNCTION list_deportistas_by_deporte(p_cod INT)
 RETURNS TABLE(
-    deportista_nombre VARCHAR(50),
-    deportista_cod INT,
-    deporte_nombre VARCHAR(20)
+    cod INT,
+    nombre VARCHAR(50),
+    cod_deporte INT
 ) AS $$
 BEGIN
     RETURN QUERY
-    SELECT d.nombre, d.cod, dp.nombre
+    SELECT d.cod, d.nombre, d.cod_deporte
     FROM deportistas d
-    JOIN deportes dp ON d.cod_deporte = dp.cod
-    WHERE dp.cod = p_cod
+    WHERE d.cod_deporte = p_cod
     ORDER BY d.nombre;
 END;
 $$ LANGUAGE plpgsql;
+
 
 ```
